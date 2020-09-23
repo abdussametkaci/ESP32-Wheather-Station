@@ -4,7 +4,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://code.highcharts.com/highcharts.js"></script>
+
   <style>
     body {
       min-width: 310px;
@@ -68,7 +68,7 @@
 </head>
 
 <body>
-  <h2>ESP32 CCS811</h2>
+  <h2>ESP32 Wheather Station CCS811</h2>
   <table id="data_table">
     <tr>
       <th>\</th>
@@ -102,170 +102,10 @@
 
   <a class="button button_download" href="/download" target="_blank">Download</a>
 
-  <div id="chart-co2" class="container"></div>
-  <div id="chart-tvoc" class="container"></div>
-  <div id="chart-temperature" class="container"></div>
-  <div id="chart-humidity" class="container"></div>
 </body>
 
 <script>
 
-  var chart_CO2 = new Highcharts.Chart({
-    chart: { renderTo: 'chart-co2' },
-    title: { text: 'CCS811 CO2' },
-    series: [{
-      showInLegend: false,
-      data: []
-    }],
-    plotOptions: {
-      line: {
-        animation: false,
-        dataLabels: { enabled: true }
-      }
-    },
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { second: '%H:%M:%S' }
-    },
-    yAxis: {
-      title: { text: 'CO2 (ppm)' }
-    },
-    credits: { enabled: false }
-  });
-  /*
-  setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var x = (new Date()).getTime(),
-          y = parseFloat(this.responseText);
-        document.getElementById("data_table").rows[1].cells[0].innerHTML = this.responseText
-        //console.log(this.responseText);
-        if (chart_CO2.series[0].data.length > 40) {
-          chart_CO2.series[0].addPoint([x, y], true, true, true);
-        } else {
-          chart_CO2.series[0].addPoint([x, y], true, false, true);
-        }
-      }
-    };
-    xhttp.open("GET", "/co2", true);
-    xhttp.send();
-  }, 1000);
-  */
-
-  var chart_TVOC = new Highcharts.Chart({
-    chart: { renderTo: 'chart-tvoc' },
-    title: { text: 'CCS811 TVOC' },
-    series: [{
-      showInLegend: false,
-      data: []
-    }],
-    plotOptions: {
-      line: {
-        animation: false,
-        dataLabels: { enabled: true }
-      },
-      series: { color: '#18009c' }
-    },
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { second: '%H:%M:%S' }
-    },
-    yAxis: {
-      title: { text: 'TVOC (ppb)' }
-    },
-    credits: { enabled: false }
-  });
-  /*
-  setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var x = (new Date()).getTime(),
-          y = parseFloat(this.responseText);
-        document.getElementById("data_table").rows[1].cells[1].innerHTML = this.responseText
-        //console.log(this.responseText);
-        if (chart_TVOC.series[0].data.length > 40) {
-          chart_TVOC.series[0].addPoint([x, y], true, true, true);
-        } else {
-          chart_TVOC.series[0].addPoint([x, y], true, false, true);
-        }
-      }
-    };
-    xhttp.open("GET", "/tvoc", true);
-    xhttp.send();
-  }, 1000);
-  */
-
-  var chart_Temperature = new Highcharts.Chart({
-    chart: { renderTo: 'chart-temperature' },
-    title: { text: 'CCS811 Temperature' },
-    series: [{
-      showInLegend: false,
-      data: []
-    }],
-    plotOptions: {
-      line: {
-        animation: false,
-        dataLabels: { enabled: true }
-      },
-      series: { color: '#059e8a' }
-    },
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { second: '%H:%M:%S' }
-    },
-    yAxis: {
-      title: { text: 'Temperature (Celcius)' }
-      //title: { text: 'Temperature (Fahrenheit)' }
-    },
-    credits: { enabled: false }
-  });
-  /*
-  setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var x = (new Date()).getTime(),
-          y = parseFloat(this.responseText);
-        document.getElementById("data_table").rows[1].cells[2].innerHTML = this.responseText
-        //console.log(this.responseText);
-        if (chart_Temperature.series[0].data.length > 40) {
-          chart_Temperature.series[0].addPoint([x, y], true, true, true);
-        } else {
-          chart_Temperature.series[0].addPoint([x, y], true, false, true);
-        }
-      }
-    };
-    xhttp.open("GET", "/temperature", true);
-    xhttp.send();
-  }, 1000);
-  */
-
-  var chart_Humidity = new Highcharts.Chart({
-    chart: { renderTo: 'chart-humidity' },
-    title: { text: 'CCS811 Humidity' },
-    series: [{
-      showInLegend: false,
-      data: []
-    }],
-    plotOptions: {
-      line: {
-        animation: false,
-        dataLabels: { enabled: true }
-      },
-      series: { color: '#059e8a' }
-    },
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: { second: '%H:%M:%S' }
-    },
-    yAxis: {
-      title: { text: 'Humidity (%)' }
-      //title: { text: 'Temperature (Fahrenheit)' }
-    },
-    credits: { enabled: false }
-  });
 
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
@@ -277,7 +117,7 @@
         let i = 0;
         let j = 0;
         for (let attr in y) {
-          if(j == 4){
+          if (j == 4) { // 4 column
             j = 0
             i++
           }
@@ -285,35 +125,12 @@
           j++;
         }
 
-        if (chart_CO2.series[0].data.length > 40) {
-          chart_CO2.series[0].addPoint([x, y["co2"]], true, true, true);
-        } else {
-          chart_CO2.series[0].addPoint([x, y["co2"]], true, false, true);
-        }
-
-        if (chart_TVOC.series[0].data.length > 40) {
-          chart_TVOC.series[0].addPoint([x, y["tvoc"]], true, true, true);
-        } else {
-          chart_TVOC.series[0].addPoint([x, y["tvoc"]], true, false, true);
-        }
-
-
-        if (chart_Temperature.series[0].data.length > 40) {
-          chart_Temperature.series[0].addPoint([x, parseFloat(y["temperature"])], true, true, true);
-        } else {
-          chart_Temperature.series[0].addPoint([x,  parseFloat(y["temperature"])], true, false, true);
-        }
-
-        if (chart_Humidity.series[0].data.length > 40) {
-          chart_Humidity.series[0].addPoint([x, parseFloat(y["humidity"])], true, true, true);
-        } else {
-          chart_Humidity.series[0].addPoint([x,  parseFloat(y["humidity"])], true, false, true);
-        }
       }
     };
     xhttp.open("GET", "/data", true);
     xhttp.send();
   }, 1000);
+
 
 </script>
 
