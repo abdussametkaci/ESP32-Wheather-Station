@@ -11,16 +11,16 @@ sd kartta kaydedilmiş verileri .csv formatında indirilebilir.
 ## Konfigürasyon
 Sd kart modülü içerisinde config.txt adında bir dosya bulumalıdır. Bu dosya birkaç durum için
 cihazınızı konfigüre etmenizi sağlar. İçinde JSON formatında yazılmış veriler vardır. Bu veriler; 
--> has_wifi: Boolean tipinde veridir.
--> wpa2_enterprise: Boolean tipinde veridir. Eğer cihazınızı koyduğunuz mekanda wifi varsa ancak bu wifi
+1) has_wifi: Boolean tipinde veridir.
+2) wpa2_enterprise: Boolean tipinde veridir. Eğer cihazınızı koyduğunuz mekanda wifi varsa ancak bu wifi
 kullanıcı adı ve şifre ile giriş yapılması gerekiyorsa eğer bu değeri true yapmalısınız. Eğer normal bir
 wifi ağınız varsa yani sadece şifre ile giriş yapılıyorsa bu değeri false yapmalısınız.
--> ssid: String tipinde bir veridir. Giriş yapacağınız veya wifi olmadığı durunlarda yayacağı internet ağının
+3) ssid: String tipinde bir veridir. Giriş yapacağınız veya wifi olmadığı durunlarda yayacağı internet ağının
 adını belirlemektedir. Eğer wifi ağınız varsa giriş yapacağınız wifi ağının adını yazmalısınız.
--> password: String tipinde bir veridir. Giriş yapacağınız wifi ağının şifresidir. Wifi ağı yok ise, yayacağınız
+4) password: String tipinde bir veridir. Giriş yapacağınız wifi ağının şifresidir. Wifi ağı yok ise, yayacağınız
 ağın şifresini belirleyebilirsiniz.
--> username: String tipinde bir veridir. Wifi ağına bağlanırken kullanıcı adı ve şifre ile giriş
+5) username: String tipinde bir veridir. Wifi ağına bağlanırken kullanıcı adı ve şifre ile giriş
 yapmanız gerekiyorsa eğer (WPA2 Enterprise), bu özelliği kullanmalısınız. Kullanıcı adınızı belirler.
--> hostname: String tipinde bir veridir. Wifi ağınız olsun veya olmasın,bağlandığınız cihaza browser'da
+6) hostname: String tipinde bir veridir. Wifi ağınız olsun veya olmasın,bağlandığınız cihaza browser'da
 hangi adres ile bağlnabileceğini belirler. Örneğin buraya esp32 yazarsanız eğer, siz http://esp32.local
 web adresinden cihazınıza ulaşabilirsiniz. (NOT: Aynı ağa bağlı olmanız gerekmekyedir.)
