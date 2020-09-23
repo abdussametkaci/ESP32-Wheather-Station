@@ -24,3 +24,16 @@ yapmanız gerekiyorsa eğer (WPA2 Enterprise), bu özelliği kullanmalısınız.
 6) hostname: String tipinde bir veridir. Wifi ağınız olsun veya olmasın,bağlandığınız cihaza browser'da
 hangi adres ile bağlnabileceğini belirler. Örneğin buraya esp32 yazarsanız eğer, siz http://esp32.local
 web adresinden cihazınıza ulaşabilirsiniz. (NOT: Aynı ağa bağlı olmanız gerekmekyedir.)
+## Web Sayfası
+ESP32 geliştirme katına SPIIFFS sayesinde geliştirdiğimzi web sayfasını ESP32'nin falsh memory'sine 
+yazabilmekteyiz. Bunu yapabilmek için öncelikle SPIFFS'i bilgisayarınıza kurmanız gerekmektedir. Sonrasında
+Arduino IDE'sine upload sketch bir tool gelecek ve bu tool sayesinde web sayfasını ESP32'nin falsh'ına atabilirsiniz.
+Web sayfasını karta yüklemek için Arduino projesini geliştirdiğiniz klasörde 'data' adında bir klasör açınız. Bu klasörün
+adını değiştiremezsiniz 'data' olmak zorunda. Daha sonra geliştirdiğiniz web sayfasını bu klasörün içine atıp karta yükleyebilisiniz.
+Bu projede grafikleri çizdirmek için highcharts sitesinden paket çektim ancak bu grafikleri çizdirebilmeniz için internete bağlı olması gerekmektedir.
+Eğer internetiniz yoksa bunu çizidremezsiniz ancak bu durum için bir tane web sayfası tasarladım ve burada sadce tablo ve mikro sd kart modülündeki
+verileri yükleyebileceğiniz bir adet buton bulunmaktadır.
+
+Geliştirdiğiniz web sayfasının boyutuna dikkat etmelisiniz. 1 MB ila 3 MB arasında yüklemeye izin vermektedir. Web sayfası çok yer kaplarsa
+problem olabilir. Tavsiye olarak eğer büyük bir web uygulamnız var ise bunu mikro sd kart modülüne yükleyip kullanıcı sizin adresinize istek attığında
+sd karttan bu web sayfasını çekip kullanıcıya gönderebilrisiniz.
