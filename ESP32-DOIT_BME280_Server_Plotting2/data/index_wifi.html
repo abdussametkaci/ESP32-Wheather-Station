@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <style>
+    body {
+      min-width: 310px;
+      max-width: 800px;
+      height: 400px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-family: Arial;
+      font-size: 2.5rem;
+      text-align: center;
+    }
+
+    #data_table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #data_table td,
+    #data_table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #data_table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #data_table tr:hover {
+      background-color: #ddd;
+    }
+
+    #data_table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .button {
+      background-color: #4CAF50;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .button_download {
+      border-radius: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>ESP32 CCS811</h2>
+  <table id="data_table">
+    <tr>
+      <th>\</th>
+      <th>Temperature (C)</th>
+      <th>Humidity (%)</th>
+    </tr>
+    <tr>
+      <th>Current</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Max</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Min</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </table>
+
+  <a class="button button_download" href="/download" target="_blank">Download</a>
+
+  <div id="chart-temperature" class="container"></div>
+  <div id="chart-humidity" class="container"></div>
+</body>
+
+<script>
+
+  var chart_Temperature = new Highcharts.Chart({
+    chart: { renderTo: 'chart-temperature' },
+    title: { text: 'CCS811 Temperature' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#059e8a' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Temperature (Celcius)' }
+      //title: { text: 'Temperature (Fahrenheit)' }
+    },
+    credits: { enabled: false }
+  });
+  
+
+  var chart_Humidity = new Highcharts.Chart({
+    chart: { renderTo: 'chart-humidity' },
+    title: { text: 'CCS811 Humidity' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#059e8a' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Humidity (%)' }
+      //title: { text: 'Temperature (Fahrenheit)' }
+    },
+    credits: { enabled: false }
+  });
+
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+          y = JSON.parse(this.responseText);
+        console.log(this.responseText);
+        let i = 0;
+        let j = 0;
+        for (let attr in y) {
+          if(j == 2){
+            j = 0
+            i++
+          }
+          document.getElementById("data_table").rows[i + 1].cells[j + 1].innerHTML = y[attr] // attribute of json object
+          j++;
+        }
+
+
+        if (chart_Temperature.series[0].data.length > 40) {
+          chart_Temperature.series[0].addPoint([x, parseFloat(y["temperature"])], true, true, true);
+        } else {
+          chart_Temperature.series[0].addPoint([x,  parseFloat(y["temperature"])], true, false, true);
+        }
+
+        if (chart_Humidity.series[0].data.length > 40) {
+          chart_Humidity.series[0].addPoint([x, parseFloat(y["humidity"])], true, true, true);
+        } else {
+          chart_Humidity.series[0].addPoint([x,  parseFloat(y["humidity"])], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/data", true);
+    xhttp.send();
+  }, 1000);
+
+</script>
+
+</html>
