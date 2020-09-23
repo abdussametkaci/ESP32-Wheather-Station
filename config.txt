@@ -1,0 +1,8 @@
+{
+  "has_wifi": true,
+  "wpa2_enterprise": false,
+  "ssid": "yourssid",
+  "password": "yourpassword",
+  "username": "yourusername, if wpa2_enterprise is true",
+  "hostname": "esp32"
+}
