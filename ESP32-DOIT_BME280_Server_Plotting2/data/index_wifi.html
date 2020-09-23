@@ -68,7 +68,7 @@
 </head>
 
 <body>
-  <h2>ESP32 CCS811</h2>
+  <h2>ESP32 Wheather Station BME280</h2>
   <table id="data_table">
     <tr>
       <th>\</th>
@@ -161,7 +161,7 @@
         let i = 0;
         let j = 0;
         for (let attr in y) {
-          if(j == 2){
+          if(j == 2){ // 2 column
             j = 0
             i++
           }
