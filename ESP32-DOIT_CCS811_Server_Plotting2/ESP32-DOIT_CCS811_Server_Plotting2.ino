@@ -170,7 +170,11 @@ void setup() {
 
 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
-    request->send(SPIFFS, "/index.html");
+    if(wifi_config.has_wifi){
+      request->send(SPIFFS, "/index_wifi.html");
+    } else {
+      request->send(SPIFFS, "/index.html");
+    }
   });
 
 
