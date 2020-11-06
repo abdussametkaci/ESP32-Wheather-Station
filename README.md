@@ -37,3 +37,5 @@ verileri yükleyebileceğiniz bir adet buton bulunmaktadır.
 Geliştirdiğiniz web sayfasının boyutuna dikkat etmelisiniz. 1 MB ila 3 MB arasında yüklemeye izin vermektedir. Web sayfası çok yer kaplarsa
 problem olabilir. Tavsiye olarak eğer büyük bir web uygulamnız var ise bunu mikro sd kart modülüne yükleyip kullanıcı sizin adresinize istek attığında
 sd karttan bu web sayfasını çekip kullanıcıya gönderebilrisiniz.
+## SD Kart Hakkında
+ESP32 geliştirme kartı ile uğraşırken mikro SD kart modülü yazma problemleri yaşanabilmektedir. Eğer yazma hakkında problem yaşıyorsanız dosyanızı açmadan hemen önce SD kart modülünü yeniden başlatmanız gerekmektedir (SD.end();SD.begin()). Eğer yaşamıyorsanız bunu yapmk gerekmez. Ancak serverdan SD kart içerisindeki dosyayı indirmek isterseniz bunu indirmeden hemen önce yapmanız gerekmektedir.
